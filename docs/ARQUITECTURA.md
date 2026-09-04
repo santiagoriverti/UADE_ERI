@@ -30,8 +30,10 @@ el notebook en clase.
 UADE_ERI/
 ├── README.md                 Portada: tabla de notebooks con badges de Colab
 ├── CLAUDE.md                 Instrucciones para agentes de IA que trabajen acá
-├── requirements.txt          Dependencias (solo para uso local; Colab ya las trae)
+├── requirements.txt          Dependencias de uso (Colab ya las trae todas)
+├── requirements-dev.txt      Dependencias de mantenimiento (nbformat, nbclient)
 ├── .gitignore
+├── .gitattributes            Normaliza finales de línea a LF entre sistemas operativos
 │
 ├── notebooks/                UN NOTEBOOK POR UNIDAD. Es el producto del repo.
 │   ├── 01_unidad_I_decisiones_riesgo_incertidumbre.ipynb
@@ -57,10 +59,14 @@ UADE_ERI/
 ├── latex/                    Fuentes .tex de las notas de clase y la guía
 │
 ├── tools/                    Scripts de mantenimiento (no los usa el alumno)
+│   ├── README.md             Qué hace cada uno y cuándo correrlo
 │   ├── verificar.py          Corre eri_utils contra los valores de la guía
-│   └── limpiar_notebooks.py  Borra outputs antes de commitear
+│   ├── probar_nb.py          Ejecuta los notebooks: es el test del repositorio
+│   ├── limpiar_notebooks.py  Borra outputs antes de commitear
+│   └── nbgen.py              Genera un .ipynb desde un borrador en texto plano
 │
 └── docs/                     Memoria del proyecto
+    ├── COMO_TRABAJAR.md      Arranque en máquina nueva, ciclo de trabajo, troubleshooting
     ├── ARQUITECTURA.md       (este archivo)
     ├── CONTEXTO.md           La materia: cronograma, unidades, bibliografía
     ├── CONVENCIONES.md       Anatomía de un notebook, notación, estilo
@@ -148,6 +154,17 @@ el notebook falla al ejecutarse de punta a punta y el error aparece antes de la
 clase, no durante. Cumple además una función pedagógica: hace explícito que el
 resultado numérico y el analítico deben coincidir.
 
+Esto convierte a **`tools/probar_nb.py` en el test del repositorio**: ejecuta cada
+notebook completo, de modo que «corre limpio» equivale a «todos los resultados siguen
+coincidiendo con la guía de soluciones». Y `tools/verificar.py` hace lo propio a nivel
+del módulo compartido, con 55 comprobaciones que citan el ejercicio del que sale cada
+valor esperado.
+
+Un detalle de criterio en las tolerancias: donde la guía publica un valor redondeado
+(«8,23 %»), la verificación compara contra el valor **exacto** con tolerancia estrecha
+y deja el número de la guía en un comentario. Comparar contra el redondeo obligaría a
+tolerancias flojas que dejarían pasar errores reales.
+
 ### 3.5 Interactividad quirúrgica
 
 Matplotlib estático por defecto, con la estética navy/oro de las notas. Se agregan
@@ -170,6 +187,10 @@ GitHub, y no aporta nada que la enseñanza necesite.
 Se versiona el código, no el resultado de ejecutarlo. Un notebook con salidas
 genera diffs de miles de líneas por un gráfico que cambió un píxel, y vuelve el
 historial inservible. `tools/limpiar_notebooks.py` hace la limpieza.
+
+Por la misma razón, `.gitattributes` normaliza los finales de línea a **LF**. Sin
+eso, el mismo `.ipynb` editado en Windows y en otra máquina produce un diff de
+«cambió todo el archivo», que es exactamente el problema que se quería evitar.
 
 ---
 
@@ -195,16 +216,23 @@ Dos consecuencias a tener presentes:
 
 ## 5. Flujo de trabajo típico
 
+Ver [`COMO_TRABAJAR.md`](COMO_TRABAJAR.md) para el detalle, incluida la puesta en
+marcha en una máquina nueva. En resumen:
+
 ```bash
-# 1. Editar un notebook (en Colab, o local con Jupyter)
-# 2. Verificar que el módulo compartido sigue sano
+# 1. Editar un notebook (en Colab, o local con Jupyter, o con tools/nbgen.py)
+
+# 2. Verificar que el módulo compartido sigue reproduciendo la guía
 python tools/verificar.py
 
-# 3. Ejecutar el notebook completo de punta a punta (los asserts son el test)
+# 3. Ejecutar los notebooks: los asserts son el test
+python tools/probar_nb.py --todos
+
 # 4. Limpiar salidas
 python tools/limpiar_notebooks.py
 
 # 5. Actualizar docs/ESTADO.md con lo que se hizo y lo que quedó pendiente
+
 # 6. Commit y push a main (necesario para que los links de Colab anden)
-git add -A && git commit -m "Agrega notebook de la Unidad IV" && git push
+git add -A && git commit -m "Agrega notebook de la Unidad IV" && git push origin main
 ```

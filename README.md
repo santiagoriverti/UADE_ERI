@@ -86,7 +86,7 @@ notebooks/     Un notebook por unidad, más dos de repaso
 src/           eri_utils.py — módulo compartido: estética y funciones transversales
 data/          Datasets versionados que consumen los notebooks
 latex/         Fuentes .tex de las notas de clase y la guía de ejercicios
-tools/         Scripts de mantenimiento (verificación y limpieza)
+tools/         Scripts de mantenimiento: verificación, prueba y limpieza
 docs/          Documentación del proyecto
 ```
 
@@ -94,26 +94,36 @@ Para trabajar sobre el repositorio (no hace falta para *usarlo*):
 
 | Documento | Contenido |
 |---|---|
-| [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) | Estructura y decisiones de diseño |
+| [`docs/COMO_TRABAJAR.md`](docs/COMO_TRABAJAR.md) | **Empezá por acá.** Puesta en marcha en una máquina nueva y ciclo de trabajo |
+| [`docs/ESTADO.md`](docs/ESTADO.md) | Qué está hecho, qué falta y cuál es el próximo paso |
+| [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) | Estructura y fundamento de cada decisión de diseño |
 | [`docs/CONTEXTO.md`](docs/CONTEXTO.md) | La materia: cronograma, unidades, bibliografía |
 | [`docs/CONVENCIONES.md`](docs/CONVENCIONES.md) | Anatomía de un notebook, notación, estilo |
-| [`docs/ESTADO.md`](docs/ESTADO.md) | Qué está hecho y qué falta |
 | [`docs/teoria/`](docs/teoria) | Resumen técnico de cada unidad |
+| [`tools/README.md`](tools/README.md) | Qué hace cada script y cuándo correrlo |
 
-### Ejecutar los notebooks localmente
+### Poner el entorno en marcha
 
 ```bash
 git clone https://github.com/santiagoriverti/UADE_ERI.git
 cd UADE_ERI
-pip install -r requirements.txt
-jupyter lab
+python -m venv .venv
 ```
 
-Verificar que el módulo compartido reproduce los resultados de la guía:
+Activar el entorno (`.venv\Scripts\Activate.ps1` en Windows, `source .venv/bin/activate` en macOS o Linux) e instalar:
 
 ```bash
-python tools/verificar.py
+pip install -r requirements.txt -r requirements-dev.txt
 ```
+
+Verificar que todo funciona — los dos comandos deben pasar:
+
+```bash
+python tools/verificar.py && python tools/probar_nb.py --todos
+```
+
+El primero contrasta `eri_utils` contra 55 valores de la guía de soluciones; el segundo
+ejecuta los doce notebooks de punta a punta.
 
 ---
 

@@ -3,6 +3,11 @@
 > Reglas concretas para que los doce notebooks se vean y se lean como un solo
 > material, y no como doce trabajos distintos. Si vas a escribir o modificar un
 > notebook, seguí esto al pie de la letra.
+>
+> **El ejemplo canónico es [`notebooks/04_unidad_IV_finanzas.ipynb`](../notebooks/04_unidad_IV_finanzas.ipynb).**
+> Ante cualquier duda que este documento no resuelva, mirá cómo está resuelto ahí y
+> replicalo. Un notebook nuevo que no se parezca a ése está mal, aunque respete cada
+> regla de esta página por separado.
 
 ---
 
@@ -192,9 +197,18 @@ número solo no enseña nada.
 
 ## 6. Antes de commitear
 
-1. `Runtime > Restart and run all` (o `jupyter nbconvert --execute`): el notebook
-   tiene que correr limpio de arriba abajo. Los `assert` son el test.
-2. `python tools/verificar.py` si tocaste `src/eri_utils.py`.
-3. `python tools/limpiar_notebooks.py` para borrar las salidas.
-4. Actualizar `docs/ESTADO.md`.
-5. Commit en español, imperativo, sin atribución de IA.
+```bash
+python tools/verificar.py          # el módulo sigue reproduciendo la guía (55 checks)
+python tools/probar_nb.py --todos  # los notebooks corren limpios; los asserts son el test
+python tools/limpiar_notebooks.py  # borrar las salidas
+```
+
+Después:
+
+4. Actualizar `docs/ESTADO.md`: el estado de lo que tocaste más una línea en la bitácora.
+5. Commit en español, imperativo, **sin atribución de IA**.
+6. **`git push origin main`** — sin push, el badge de Colab de ese notebook da 404.
+
+> Si preferís verificar desde Colab en lugar de local, `Entorno de ejecución →
+> Reiniciar y ejecutar todo` hace lo mismo que `probar_nb.py` para ese notebook.
+> El detalle del ciclo completo está en [`COMO_TRABAJAR.md`](COMO_TRABAJAR.md).

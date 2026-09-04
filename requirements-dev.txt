@@ -1,0 +1,9 @@
+# Dependencias adicionales para MANTENER el repositorio (no para usarlo).
+# Los alumnos no necesitan nada de esto: abren los notebooks en Colab.
+#
+#   pip install -r requirements.txt -r requirements-dev.txt
+
+# Necesarias para tools/probar_nb.py, que ejecuta los notebooks como test.
+nbformat>=5.9
+nbclient>=0.9
+ipykernel>=6.25

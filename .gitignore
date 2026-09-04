@@ -33,3 +33,6 @@ desktop.ini
 figuras/
 *.png
 !docs/**/*.png
+
+# Borradores de notebook para tools/nbgen.py (el .ipynb es la fuente de verdad)
+*.nbsrc

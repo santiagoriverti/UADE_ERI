@@ -1,0 +1,23 @@
+# Normaliza los finales de linea para que el repositorio se comporte igual en
+# Windows, macOS y Linux. Sin esto, un mismo archivo editado en dos maquinas
+# distintas produce diffs de "todo el archivo cambio".
+* text=auto eol=lf
+
+# Los notebooks son JSON: siempre LF, y nunca tratados como binarios.
+*.ipynb text eol=lf
+
+# Fuentes
+*.py    text eol=lf
+*.md    text eol=lf
+*.tex   text eol=lf
+*.csv   text eol=lf
+*.txt   text eol=lf
+
+# Binarios: que git no intente convertir nada.
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+
+# GitHub: no contar los notebooks como "lenguaje del repo" en las estadisticas,
+# y marcarlos para que el diff sea legible.
+*.ipynb linguist-documentation

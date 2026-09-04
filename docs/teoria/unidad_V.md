@@ -211,7 +211,7 @@ aversión al riesgo es, por sí sola, una fuente de concentración oligopólica.
 |---|---|
 | `fig:reduccion` | $C'(x)$ creciente, línea horizontal en $\mu$, marcar $x_c$ y $x^*$, llave para la prima marginal |
 | `fig:oferta` | Oferta inversa de certeza ($\mu=cx$) vs. aversa ($\mu=(c+\rho\sigma^2)x$), más empinada |
-| Equivalente cierto | $\mathrm{EC}(x)$, $E[\pi](x)$ y el descuento por riesgo, los tres sobre el mismo eje, mostrando dónde cae cada máximo |
+| Equivalente cierto | $\mathrm{EC}(x)$, $E[\pi(x)]$ y el descuento por riesgo, los tres sobre el mismo eje, mostrando dónde cae cada máximo |
 | Oferta hacia atrás | Con utilidad cuadrática y costo marginal constante, la curva doblándose |
 
 ### Cálculos y simulaciones
