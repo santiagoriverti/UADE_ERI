@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# Jupyter
+*.nbconvert.ipynb
+
+# LaTeX (productos de compilacion; los .tex SI se versionan)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+
+# Figuras exportadas desde los notebooks (se regeneran al ejecutar)
+figuras/
+*.png
+!docs/**/*.png
