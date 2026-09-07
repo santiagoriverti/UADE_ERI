@@ -128,6 +128,5 @@ ejecuta los doce notebooks de punta a punta.
 ---
 
 <div align="center">
-<sub>Santiago Riverti Lavalle — Jefe de Trabajos Prácticos</sub><br>
 <sub>DEEFI — Facultad de Ciencias Económicas — UADE</sub>
 </div>
